@@ -73,11 +73,11 @@ int main() {
 
 
 ## OUTPUT:
-```
+
 
 ![Screenshot 2024-08-31 205411](https://github.com/user-attachments/assets/6d2c3f17-fc70-461a-a516-5bad40c9f14e)
 
-```
+
 
 ## RESULT:
 The program is executed successfully

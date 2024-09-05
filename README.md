@@ -34,37 +34,64 @@ Implementation using C or pyhton code
 #include <stdio.h>
 #include <string.h>
 
-void caesar_cipher(char* text, int shift) {
-    for (int i = 0; text[i] != '\0'; ++i) {
-        char ch = text[i];
-
-        
-        if (ch >= 'A' && ch <= 'Z') {
-            ch = (ch - 'A' + shift) % 26 + 'A';
+void encrypt(char message[], int shift) {
+    char ch;
+    for (int i = 0; message[i] != '\0'; ++i) {
+        ch = message[i];
+        if (ch >= 'a' && ch <= 'z') {
+            ch = ch + shift;
+            if (ch > 'z') {
+                ch = ch - 'z' + 'a' - 1;
+            }
+            message[i] = ch;
+        } else if (ch >= 'A' && ch <= 'Z') {
+            ch = ch + shift;
+            if (ch > 'Z') {
+                ch = ch - 'Z' + 'A' - 1;
+            }
+            message[i] = ch;
         }
-       
-        else if (ch >= 'a' && ch <= 'z') {
-            ch = (ch - 'a' + shift) % 26 + 'a';
-        }
-
-        text[i] = ch;
     }
+    printf("Encrypted message: %s\n", message);
+}
+
+void decrypt(char message[], int shift) {
+    char ch;
+    for (int i = 0; message[i] != '\0'; ++i) {
+        ch = message[i];
+        if (ch >= 'a' && ch <= 'z') {
+            ch = ch - shift;
+            if (ch < 'a') {
+                ch = ch + 'z' - 'a' + 1;
+            }
+            message[i] = ch;
+        } else if (ch >= 'A' && ch <= 'Z') {
+            ch = ch - shift;
+            if (ch < 'A') {
+                ch = ch + 'Z' - 'A' + 1;
+            }
+            message[i] = ch;
+        }
+    }
+    printf("Decrypted message: %s\n", message);
 }
 
 int main() {
-    char text[100];
+    char message[100];
     int shift;
 
-    printf("Enter a string: ");
-    fgets(text, sizeof(text), stdin);
-    text[strcspn(text, "\n")] = '\0';  
+    printf("Enter a message: ");
+    gets(message);  // reads a line of text
 
     printf("Enter shift amount: ");
     scanf("%d", &shift);
 
-    caesar_cipher(text, shift);
+    // Make a copy of the message to decrypt later
+    char encrypted_message[100];
+    strcpy(encrypted_message, message);
 
-    printf("Encrypted text: %s\n", text);
+    encrypt(encrypted_message, shift);
+    decrypt(encrypted_message, shift);
 
     return 0;
 }
@@ -74,7 +101,7 @@ int main() {
 
 ## OUTPUT:
 
-![Screenshot 2024-08-31 211049](https://github.com/user-attachments/assets/2fc887a9-e3ce-4adb-8684-f16e6f8a8bda)
+![Screenshot 2024-09-05 085453](https://github.com/user-attachments/assets/d215036e-2a4a-421d-a632-a1970a47422b)
 
 
 
